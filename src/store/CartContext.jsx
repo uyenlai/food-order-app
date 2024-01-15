@@ -29,7 +29,6 @@ function reducer(state, action) {
     const existingItemIndex = state.items.findIndex(
       (item) => item.id === action.payload.id
     );
-    console.log(existingItemIndex);
     const updatedCart = [...state.items];
     const existingItem = updatedCart[existingItemIndex];
     if (existingItem.quantity > 1) {
@@ -49,7 +48,6 @@ function reducer(state, action) {
 
 export default function CartProvider({ children }) {
   const [cart, dispatch] = useReducer(reducer, { items: [] });
-  console.log(cart);
 
   const value = {
     cart: cart.items,
