@@ -7,6 +7,11 @@ const MealItem = ({ meal }) => {
   function handleAddItem(item) {
     cart.addItem(item);
   }
+
+  function handleRemoveItem(id) {
+    cart.removeItem(id)
+  }
+
   return (
     <li className="meal-item">
       <article>
@@ -29,6 +34,7 @@ const MealItem = ({ meal }) => {
           >
             Add to cart
           </button>
+          <button onClick={() => handleRemoveItem(meal.id)}>Delete</button>
         </div>
       </article>
     </li>

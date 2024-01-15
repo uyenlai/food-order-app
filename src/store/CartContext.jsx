@@ -26,6 +26,22 @@ function reducer(state, action) {
   }
 
   if (action.type === "REMOVE_ITEM") {
+    const existingItemIndex = state.items.findIndex(
+      (item) => item.id === action.payload.id
+    );
+    console.log(existingItemIndex);
+    const updatedCart = [...state.items];
+    const existingItem = updatedCart[existingItemIndex];
+    if (existingItem.quantity > 1) {
+      const updatedItem = {
+        ...existingItem,
+        quantity: existingItem.quantity - 1,
+      };
+      updatedCart[existingItemIndex] = updatedItem;
+    } else {
+      updatedCart.splice(existingItemIndex, 1);
+    }
+    return { ...state, items: updatedCart };
   }
 
   return state;
