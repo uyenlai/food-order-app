@@ -1,7 +1,6 @@
 import React from "react";
 
 const CartItem = ({ item, handleDecrease, handleIncrease }) => {
-  function handleAddItem() {}
   return (
     <li className="cart-item">
       <p>

@@ -5,12 +5,9 @@ import { ModalContext } from "../store/ModalContext";
 import { CartContext } from "../store/CartContext";
 
 const Header = () => {
-  const modal = useContext(ModalContext);
+  const { handleToggleCartModal } = useContext(ModalContext);
   const { cart } = useContext(CartContext);
 
-  function handleOpenModal() {
-    modal.handleOpen();
-  }
   const totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
 
   return (
@@ -19,7 +16,7 @@ const Header = () => {
         <img src={logo} alt="Logo" />
         <h1>Reactfood</h1>
       </div>
-      <button onClick={handleOpenModal} className="button">
+      <button onClick={() => handleToggleCartModal()} className="button">
         Cart
         <span> ({totalQuantity})</span>
       </button>

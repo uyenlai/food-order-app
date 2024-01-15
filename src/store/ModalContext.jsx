@@ -7,7 +7,7 @@ export default function ModalProvider({ children }) {
 
   const value = {
     open,
-    handleOpen: function () {
+    handleToggleCartModal: function () {
       setOpen(!open);
     },
   };
