@@ -6,15 +6,20 @@ import { ModalContext } from "../store/ModalContext";
 
 const Cart = () => {
   const { cart, addItem, removeItem } = useContext(CartContext);
-  const { handleToggleCartModal } = useContext(ModalContext);
+  const { open, handleToggleCartModal } = useContext(ModalContext);
+  console.log(open);
 
   const total = cart.reduce(
     (total, item) => total + item.price * item.quantity,
     0
   );
 
+  function handleToggleCart() {
+    handleToggleCartModal();
+  }
+
   return (
-    <Modal className="cart">
+    <Modal className="cart" onClose={open ? handleToggleCart : undefined}>
       <h2>Your cart</h2>
       <ul>
         {cart.map((item) => (
@@ -28,13 +33,10 @@ const Cart = () => {
       </ul>
       <p className="cart-total">Total: {total}$</p>
       <p className="modal-actions">
-        <button
-          className="button text-button"
-          onClick={() => handleToggleCartModal()}
-        >
+        <button className="button text-button" onClick={handleToggleCart}>
           Close
         </button>
-        <button className="button">Checkout</button>
+        {cart.length > 0 && <button className="button">Checkout</button>}
       </p>
     </Modal>
   );

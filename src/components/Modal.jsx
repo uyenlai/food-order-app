@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 import { useContext } from "react";
 import { ModalContext } from "../store/ModalContext";
 
-const Modal = ({ children, styles }) => {
+const Modal = ({ children, styles, onClose }) => {
   const dialog = useRef();
   const { open } = useContext(ModalContext);
 
@@ -19,7 +19,7 @@ const Modal = ({ children, styles }) => {
   }, [open]);
 
   return createPortal(
-    <dialog ref={dialog} className={`modal ${styles}`}>
+    <dialog ref={dialog} className={`modal ${styles}`} onClose={onClose}>
       {children}
     </dialog>,
     document.getElementById("modal")
