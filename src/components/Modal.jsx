@@ -5,18 +5,21 @@ import { ModalContext } from "../store/ModalContext";
 
 const Modal = ({ children, styles, onClose }) => {
   const dialog = useRef();
-  const { open } = useContext(ModalContext);
+  const modal = useContext(ModalContext);
 
   useEffect(() => {
-    if (open) {
-      console.log("setup code", open);
-      dialog.current.showModal();
-    } else return;
+    if (modal.type === "") {
+      return;
+    }
+
+    console.log("setup code", modal.type);
+    dialog.current.showModal();
+
     return () => {
-      console.log("cleanup code", open);
+      console.log("cleanup code", modal.type);
       dialog.current.close();
     };
-  }, [open]);
+  }, [modal.type]);
 
   return createPortal(
     <dialog ref={dialog} className={`modal ${styles}`} onClose={onClose}>

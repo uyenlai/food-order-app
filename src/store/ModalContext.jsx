@@ -3,12 +3,22 @@ import { createContext, useState } from "react";
 export const ModalContext = createContext();
 
 export default function ModalProvider({ children }) {
-  const [open, setOpen] = useState(false);
+  const [type, setType] = useState("");
 
   const value = {
-    open,
-    handleToggleCartModal: function () {
-      setOpen(!open);
+    type,
+    openCart: function () {
+      setType("cart");
+    },
+    hideCart: function () {
+      setType("");
+    },
+
+    openCheckout: function () {
+      setType("checkout");
+    },
+    hideCheckout: function () {
+      setType("");
     },
   };
   return (
