@@ -1,25 +1,22 @@
 import React, { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
-import { useContext } from "react";
-import { ModalContext } from "../store/ModalContext";
 
-const Modal = ({ children, styles, onClose }) => {
+const Modal = ({ children, styles, onClose, open }) => {
   const dialog = useRef();
-  const modal = useContext(ModalContext);
 
   useEffect(() => {
-    if (modal.type === "") {
+    if (!open) {
       return;
     }
 
-    console.log("setup code", modal.type);
+    console.log("setup code", open);
     dialog.current.showModal();
 
     return () => {
-      console.log("cleanup code", modal.type);
+      console.log("cleanup code", open);
       dialog.current.close();
     };
-  }, [modal.type]);
+  }, [open]);
 
   return createPortal(
     <dialog ref={dialog} className={`modal ${styles}`} onClose={onClose}>

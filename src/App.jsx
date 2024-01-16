@@ -12,7 +12,7 @@ function App() {
         <Header />
         <Meals />
         <Cart />
-        {/* <Checkout /> */}
+        <Checkout />
       </CartProvider>
     </ModalProvider>
   );
