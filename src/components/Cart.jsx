@@ -7,7 +7,6 @@ import { ModalContext } from "../store/ModalContext";
 const Cart = () => {
   const { cart, addItem, removeItem } = useContext(CartContext);
   const modal = useContext(ModalContext);
-  console.log(modal.type);
 
   const total = cart.reduce(
     (total, item) => total + item.price * item.quantity,

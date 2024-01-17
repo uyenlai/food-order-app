@@ -6,9 +6,10 @@ import { useContext } from "react";
 import { ModalContext } from "../store/ModalContext";
 
 const Checkout = () => {
-  const { cart } = useContext(CartContext);
+  const { cart, clearCart } = useContext(CartContext);
   const modal = useContext(ModalContext);
   const [isSending, setIsSending] = useState(false);
+  const [didSend, setDidSend] = useState(false);
 
   const total = cart.reduce(
     (total, item) => total + item.price * item.quantity,
@@ -17,9 +18,11 @@ const Checkout = () => {
 
   function handleCloseCheckout() {
     modal.hideCheckout();
+    setDidSend(false);
+    clearCart();
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
     const formData = new FormData(e.target);
@@ -30,7 +33,7 @@ const Checkout = () => {
 
     const data = Object.fromEntries(array);
 
-    const sendingOrder = async () => {
+    try {
       setIsSending(true);
       const response = await fetch("http://localhost:3000/orders", {
         method: "POST",
@@ -48,12 +51,14 @@ const Checkout = () => {
         throw new Error("Something went wrong!");
       }
       setIsSending(false);
-    };
-    sendingOrder();
+      setDidSend(true);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  return (
-    <Modal open={modal.type === "checkout"}>
+  const modalContent = (
+    <>
       <form onSubmit={handleSubmit}>
         <h2>Checkout</h2>
         <p>Total Amount: {total}</p>
@@ -82,6 +87,26 @@ const Checkout = () => {
           </button>
         </p>
       </form>
+    </>
+  );
+
+  return (
+    <Modal open={modal.type === "checkout"}>
+      {!didSend && !isSending && modalContent}
+      {didSend && !isSending && (
+        <div style={{ textAlign: "center", padding: "20px" }}>
+          <p>Successfully sent your order!</p>
+          <p>
+            <button
+              className="button"
+              type="button"
+              onClick={handleCloseCheckout}
+            >
+              Close
+            </button>
+          </p>
+        </div>
+      )}
     </Modal>
   );
 };
