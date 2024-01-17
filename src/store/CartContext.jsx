@@ -8,8 +8,6 @@ export const CartContext = createContext({
 });
 
 function reducer(state, action) {
-  console.log(state);
-
   if (action.type === "ADD_ITEM") {
     const existingItemIndex = state.items.findIndex(
       (item) => item.id === action.payload.item.id
@@ -47,7 +45,6 @@ function reducer(state, action) {
   }
 
   if (action.type === "CLEAR") {
-    console.log(state);
     return { ...state, items: [] };
   }
 

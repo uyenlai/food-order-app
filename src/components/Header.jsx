@@ -14,7 +14,7 @@ const Header = () => {
     <div id="main-header">
       <div id="title">
         <img src={logo} alt="Logo" />
-        <h1>Reactfood</h1>
+        <h1>Restaurant</h1>
       </div>
       <button onClick={() => openCart()} className="button">
         Cart

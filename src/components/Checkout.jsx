@@ -19,6 +19,10 @@ const Checkout = () => {
   function handleCloseCheckout() {
     modal.hideCheckout();
     setDidSend(false);
+  }
+
+  function handleCloseSent() {
+    modal.hideCheckout();
     clearCart();
   }
 
@@ -97,11 +101,7 @@ const Checkout = () => {
         <div style={{ textAlign: "center", padding: "20px" }}>
           <p>Successfully sent your order!</p>
           <p>
-            <button
-              className="button"
-              type="button"
-              onClick={handleCloseCheckout}
-            >
+            <button className="button" type="button" onClick={handleCloseSent}>
               Close
             </button>
           </p>
