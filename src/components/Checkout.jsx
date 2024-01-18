@@ -4,6 +4,7 @@ import { Input } from "./Input.jsx";
 import { CartContext } from "../store/CartContext";
 import { useContext } from "react";
 import { ModalContext } from "../store/ModalContext";
+import { formatCurrency } from "../util/formatCurrency";
 
 const Checkout = () => {
   const { cart, clearCart } = useContext(CartContext);
@@ -15,6 +16,7 @@ const Checkout = () => {
     (total, item) => total + item.price * item.quantity,
     0
   );
+  const formattedTotal = formatCurrency(total.toFixed(2));
 
   function handleCloseCheckout() {
     modal.hideCheckout();
@@ -65,7 +67,7 @@ const Checkout = () => {
     <>
       <form onSubmit={handleSubmit}>
         <h2>Checkout</h2>
-        <p>Total Amount: {total}</p>
+        <p>Total Amount: {formattedTotal}</p>
         <Input label="Full Name" id="name" name="name" type="text" />
         <Input label="E-mail" id="email" name="email" type="email" />
         <Input label="Address" id="street" name="street" type="text" />
